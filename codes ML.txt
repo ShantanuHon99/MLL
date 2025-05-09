@@ -1,0 +1,200 @@
+Linear Regression
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+# 📊 Step 1: Create a simple dataset
+
+df = pd.read_csv(data)
+
+# 🎯 Step 2: Split data into X (input) and y (output)
+X = df.iloc[:, :1]  
+y = df.iloc[:, 1:]  
+# 🔀 Step 3: Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# 🤖 Step 4: Create and train the model
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# 🔍 Step 5: Make predictions
+y_pred = regressor.predict(X_test)
+
+# 📈 Step 6: Evaluate the model
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
+
+# 🧮 Step 7: Show model parameters
+print("Coefficient (slope):", regressor.coef_[0])
+print("Intercept:", regressor.intercept_)
+
+-----------------------------------------------------------------------------------------------------------------
+
+Logistic Regression
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+
+# 1. Load the CSV data into a DataFrame
+df = pd.read_csv('your_file.csv')  # Replace 'your_file.csv' with your actual file path
+
+# 2. Inspect the first few rows of the dataset
+print(df.head())
+
+# 3. Select input features (X) and target variable (y)
+# Example: Let's say columns 'Feature1', 'Feature2' are the features and 'Target' is the label
+X = df[['Feature1', 'Feature2']]  # Replace with your actual feature columns
+y = df['Target']  # Replace with your actual target column
+
+# 4. Train-test split (80% for training, 20% for testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 5. Create and train the Logistic Regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# 6. Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# 7. Evaluate the model with confusion matrix and classification report
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+-------------------------------------------------------------------------------
+
+Decision Tree 
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+
+# 1. Load the CSV data into a DataFrame
+df = pd.read_csv('your_file.csv')  # Replace 'your_file.csv' with your actual file path
+
+# 2. Inspect the first few rows of the dataset
+print(df.head())
+
+# 3. Select input features (X) and target variable (y)
+# Example: Let's say columns 'Feature1', 'Feature2' are the features and 'Target' is the label
+X = df[['Feature1', 'Feature2']]  # Replace with your actual feature columns
+y = df['Target']  # Replace with your actual target column
+
+# 4. Train-test split (80% for training, 20% for testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 5. Create and train the Decision Tree classifier
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# 6. Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# 7. Evaluate the model with confusion matrix and classification report
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+-------------------------------------------------------------------------------------------------------
+
+
+KMeans 
+import pandas as pd
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import normalize
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+# Load data
+home_data = pd.read_csv(r'C:\Users\Sanjivani Group\Desktop\ml\pd.csv', usecols=['longitude', 'latitude', 'median_house_value'])
+
+# Train-test split
+X = home_data[['latitude', 'longitude']]
+y = home_data['median_house_value']
+X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=0)
+
+# Normalize features
+X_train_norm = normalize(X_train)
+
+# Fit KMeans and evaluate
+kmeans = KMeans(n_clusters=3, random_state=0, n_init='auto').fit(X_train_norm)
+print("Silhouette Score:", silhouette_score(X_train_norm, kmeans.labels_))
+
+# Visualizations
+sns.scatterplot(x=X_train['longitude'], y=X_train['latitude'], hue=kmeans.labels_)
+sns.boxplot(x=kmeans.labels_, y=y_train)
+-------------------------------------------------------------------------------------------------------------
+
+
+Random Forest 
+
+
+import pandas as pd 
+import numpy as np 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix , classification_report
+
+df=pd.read_csv("heart_v2.csv")
+df.head()
+x=df.drop('heart disease',axis=1)
+y=df['heart disease']
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+model=RandomForestClassifier()
+model.fit(x_train,y_train)
+y_pred=model.predict(x_test)
+from sklearn.metrics import accuracy_score,precision_score,recall_score
+print("Accuracy Score is",accuracy_score(y_test,y_pred))
+print("Recall Score is",recall_score(y_test,y_pred))
+print("Precision Score is",precision_score(y_test,y_pred))
+
+refer this i have implemented
+
+-----------------------------------------------------------------------------------------------------------------------	
+
+EDA
+
+
+import pandas as pd
+
+# Load your data
+df = pd.read_csv('your_file.csv')  # Replace with your actual file
+
+# 1. View first 5 rows
+print(df.head())
+
+# 2. View last 5 rows
+print(df.tail())
+
+# 3. Get basic info about data types and missing values
+print(df.info())
+
+# 4. Get summary statistics (mean, min, max, etc.)
+print(df.describe())
+
+# 5. Show column names
+print(df.columns)
+
+# 6. Drop unwanted columns
+drop_columns = ['Column1', 'Column2']  # Replace with actual column names
+df.drop(drop_columns, axis=1, inplace=True)
+
+# 7. Check for missing values
+print(df.isnull().sum())
+
+# 8. Check shape (rows, columns)
+print(df.shape)
+
+# 9. Check unique values in a column
+print(df['SomeColumn'].unique())  # Replace with your column
+
+# 10. Count how many times each value appears in a column
+print(df['SomeColumn'].value_counts())
